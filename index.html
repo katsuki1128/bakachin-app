@@ -1,0 +1,464 @@
+<!DOCTYPE html>
+<html lang="ja">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ＴＶでスタンプ｜バカチンガー</title>
+    <link href="https://fonts.googleapis.com/earlyaccess/nicomoji.css" rel="stylesheet">
+
+    <link rel="stylesheet" href="css/reset.css">
+    <link rel="stylesheet" href="css/style.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+</head>
+
+<body>
+    
+    <!--------------------------------
+        Living 
+    ---------------------------------->
+    <main class="living_box_02">
+        <img src="img/living_realsize.jpg">
+        <h1>テレビとスタンプでつながろう!</h1>
+        
+        <!-- テレビとスマホの画面 -->
+        <div class="tv_sp">
+            <img src="img/images/tv_sp_normal.jpg" alt="" id="tv-sp-img">
+        </div>
+
+        <!--スマホ内のスタンプ  -->
+        <div>
+            <div class="smartphone">
+                <img src="img/gu_stp.jpg" id="gu_stp" alt=""><img src="img/cho_stp.jpg" id="cho_stp" alt=""><img src="img/par_stp.jpg" id="par_stp" alt="">
+            </div>
+
+            <div class="smartphone_2">
+                <img src="img/dance_normal.png" id="nml_dance" alt=""><img src="img/dance_premiere.png" id="pre_dance" alt=""><img
+                    src="img/lookme_stp.png" id="lookme" alt="">
+            </div>
+        </div>
+        <!--ポイントの残高 フッター部分 -->
+        <div>
+            <div class="wallet_box_icon">
+                <img src="img/pt_mark.png" alt="">
+            </div> 
+
+            <div class="wallet_box_number">
+                <p id="wallet">1000</p>
+            </div>
+            <div class="wallet_box_QR">
+                <img src="img/QR.png" alt="" onclick="changeImg()" id="QR">
+            </div>
+            <div class="wallet_box_gardian">
+                <a href="../../bakachin_guardian/index2.html" target=_blank><img src="img/gardian.png"  alt=""></a>
+            </div>
+
+        </div>
+
+        <!--じゃんけん部分 自分が選んだスタンプがテレビとスマホに表示される-->
+        <div class="intv" id="intv">
+            <img src="" alt="">
+        </div>
+
+        <!--踊ってスタンプと社長スタンププがテレビとスマホに表示される-->
+        <div class="intv_other" id="intv_other">
+            <img src="" alt="">
+        </div>
+
+        <!-- プレミア踊ってスタンプが選んだスタンプがテレビとスマホに表示される -->
+        <div class="intv_pre" id="intv_pre">
+            <img src="" alt="">
+        </div>
+
+        <!-- 勝敗の結果表示 -->
+        <div class="sp_stp">
+            <img src="" alt="">
+        </div>
+
+        <!-- テキストでの状況説明 -->
+        <!-- <div id="result"><p>けっか</p></div>
+        <div id="baka_hand">バカチンガーは？</div>
+        <div id="baka_victory_defeat">勝敗は？</div> -->
+    </main>
+</body>
+
+    <!--------------------------------
+        Living
+        ---------------------------------->
+
+<script>
+  
+    // ・グーチョキパーボスタンプを押す
+    // ・じゃんけんのスタンプは10ポイント、勝つと+30ポイント、負けると-20ポイント
+
+
+    // ・勝敗の定義
+    let win = 0;   //勝ち
+    let lose = 0;  //負け
+    let equal = 0; //あいこ
+
+    //ポイントの定義
+    let assets = 1000; //手持ちポイント
+    let price = 0;     //スタンプ金額ポイント
+
+    // バカチンガーの画像のパスを格納した配列
+    let images = [
+        "premiere/baka_gu_mov.gif",
+        "premiere/baka_cho_mov.gif",
+        "premiere/baka_par_mov.gif"
+    ]  
+    
+     // グーのとき、スマホに表示されるスタンプの画像のパスを格納した配列
+    let smartp = [
+        "img/inner_equal_stp.png",
+        "img/inner_win_stp.png",
+        "img/inner_lose_stp.png"
+    ]
+
+    // チョキのとき、スマホに表示されるスタンプの画像のパスを格納した配列
+    let smartp_cho = [
+        "img/inner_lose_stp.png",
+        "img/inner_equal_stp.png",
+        "img/inner_win_stp.png"
+      
+    ]
+
+    // パーのとき、スマホに表示されるスタンプの画像のパスを格納した配列
+    let smartp_par = [
+        "img/inner_win_stp.png",    
+        "img/inner_lose_stp.png", 
+        "img/inner_equal_stp.png"
+    ]
+
+    // グーの挙動
+    $("#gu_stp").on("click", function () {
+        const min = 0;
+        const max = 2;
+        const randomNunber = Math.floor(Math.random() * (max - min + 1) + min);
+        console.log(assets)
+
+        if (randomNunber === 0) {
+            equal++;
+            assets = assets - 10+2000;
+            $("#result").text("あいこ") ;
+            $("#baka_hand").text("バカチンガーはグー");
+            $("#baka_victory_defeat").text("勝敗は" + win + "勝" + lose + "負" + equal + "分" + "勝率" + Math.floor((win / (win + lose + equal)) * 100) + "%");
+            $("#wallet").text(assets);
+            let ImagePath = images[randomNunber];
+            document.querySelector(".tv_sp img").src=ImagePath;
+            let ImagePath_sp_stp = smartp[randomNunber];
+            document.querySelector(".sp_stp img").src = ImagePath_sp_stp;
+        } else if (randomNunber === 1) {
+            win++;
+            assets = assets -10 + 5000;
+            $("#result").text("かち") ;
+            $("#baka_hand").text("バカチンガーはチョキ");
+            $("#baka_victory_defeat").text("勝敗は" + win + "勝" + lose + "負" + equal + "分" + "勝率" + Math.floor((win / (win + lose + equal)) * 100) + "%");
+            $("#wallet").text(assets);
+            let ImagePath = images[randomNunber];
+            document.querySelector(".tv_sp img").src = ImagePath;
+            let ImagePath_sp_stp = smartp[randomNunber];
+            document.querySelector(".sp_stp img").src = ImagePath_sp_stp;
+        
+        } else if (randomNunber === 2) {
+            lose++;
+            assets = assets - 10+1000;
+            $("#result").text("まけ") ;
+            $("#baka_hand").text("バカチンガーはパー");
+            $("#baka_victory_defeat").text("勝敗は" + win + "勝" + lose + "負" + equal + "分" + "勝率" + Math.floor((win / (win + lose + equal)) * 100) + "%");
+            $("#wallet").text(assets);
+            let ImagePath = images[randomNunber];
+            document.querySelector(".tv_sp img").src = ImagePath;
+            let ImagePath_sp_stp = smartp[randomNunber];
+            document.querySelector(".sp_stp img").src = ImagePath_sp_stp;
+               
+        }
+
+    })
+
+    // チョキの挙動
+    $("#cho_stp").on("click", function () {
+        const min = 0;
+        const max = 2;
+        const randomNunber = Math.floor(Math.random() * (max - min + 1) + min);
+        console.log(randomNunber)
+
+        if (randomNunber === 0) {
+            lose++;
+            assets = assets-10+1000;
+            $("#baka_hand").text("バカチンガーはグー");
+            $("#baka_victory_defeat").text("勝敗は" + win + "勝" + lose + "負" + equal + "分" + "勝率" + Math.floor((win / (win + lose + equal)) * 100) + "%");
+            $("#wallet").text(assets);
+            let ImagePath = images[randomNunber];
+            document.querySelector(".tv_sp img").src = ImagePath;
+            let ImagePath_sp_stp_cho = smartp_cho[randomNunber];
+            document.querySelector(".sp_stp img").src = ImagePath_sp_stp_cho;
+            
+        }
+        else if (randomNunber === 1) {
+            equal++;
+            assets = assets -10+2000;
+            $("#baka_hand").text("バカチンガーはチョキ");
+            $("#baka_victory_defeat").text("勝敗は" + win + "勝" + lose + "負" + equal + "分" + "勝率" + Math.floor((win / (win + lose + equal)) * 100) + "%");
+            $("#wallet").text(assets);
+            let ImagePath = images[randomNunber];
+            document.querySelector(".tv_sp img").src = ImagePath;
+            let ImagePath_sp_stp_cho = smartp_cho[randomNunber];
+            document.querySelector(".sp_stp img").src = ImagePath_sp_stp_cho;
+            
+        } else if (randomNunber === 2) {
+            win++;
+             assets = assets - 10 + 5000;
+            $("#baka_hand").text("バカチンガーはパー");
+            $("#baka_victory_defeat").text("勝敗は" + win + "勝" + lose + "負" + equal + "分" + "勝率" + Math.floor((win / (win + lose + equal)) * 100) + "%");
+            $("#wallet").text(assets);
+            let ImagePath = images[randomNunber];
+            document.querySelector(".tv_sp img").src = ImagePath;
+            let ImagePath_sp_stp_cho  = smartp_cho[randomNunber];
+            document.querySelector(".sp_stp img").src = ImagePath_sp_stp_cho;
+            
+        }
+    })
+
+    //パーの挙動
+    $("#par_stp").on("click", function () {
+        const min = 0;
+        const max = 2;
+        const randomNunber = Math.floor(Math.random() * (max - min + 1) + min);
+        console.log(randomNunber)
+
+        if (randomNunber === 0) {
+            win++;
+            assets = assets -10+5000;
+            $("#baka_hand").text("バカチンガーはグー");
+            $("#baka_victory_defeat").text("勝敗は" + win + "勝" + lose + "負" + equal + "分" + "勝率" + Math.floor((win / (win + lose + equal)) * 100) + "%");
+            $("#wallet").text(assets);
+            let ImagePath = images[randomNunber];
+            document.querySelector(".tv_sp img").src = ImagePath;
+            let ImagePath_sp_stp_par = smartp_par[randomNunber];
+            document.querySelector(".sp_stp img").src = ImagePath_sp_stp_par;
+            
+        }
+        else if (randomNunber === 1) {
+            lose++;
+            assets = assets - 10+1000;
+            $("#baka_hand").text("バカチンガーはチョキ");
+            $("#baka_victory_defeat").text("勝敗は" + win + "勝" + lose + "負" + equal + "分" + "勝率" + Math.floor((win / (win + lose + equal)) * 100) + "%");
+            $("#wallet").text(assets);
+            let ImagePath = images[randomNunber];
+            document.querySelector(".tv_sp img").src = ImagePath;
+            let ImagePath_sp_stp_par = smartp_par[randomNunber];
+            document.querySelector(".sp_stp img").src = ImagePath_sp_stp_par;
+            
+        } else if (randomNunber === 2) {
+            equal++;
+            assets = assets - 10+2000;
+            $("#baka_hand").text("バカチンガーはパー");
+            $("#baka_victory_defeat").text("勝敗は" + win + "勝" + lose + "負" + equal + "分" + "勝率" + Math.floor((win / (win + lose + equal)) * 100) + "%");
+            $("#wallet").text(assets);
+            let ImagePath = images[randomNunber];
+            document.querySelector(".tv_sp img").src = ImagePath;
+            let ImagePath_sp_stp_par = smartp_par[randomNunber];
+            document.querySelector(".sp_stp img").src = ImagePath_sp_stp_par;
+            
+        }
+       
+    })
+   
+    //スマホとテレビの中に自分が押したスタンプを表示させる
+    let images_intv = document.querySelectorAll(".smartphone img");
+    for (let i = 0; i < images.length; i++) {
+        images_intv[i].addEventListener("click", function () {
+            let imageName = "intvsp_" + this.id + ".png";
+            let intvImg = document.querySelector("#intv img");
+            intvImg.setAttribute("src", "img/" + imageName);
+        });
+    }
+
+    // 踊ってスタンプを押したら、画面に表示され100消費する
+        let intvImg01 = document.querySelector(".intv_other img");
+        let wallet01 = document.getElementById("wallet");
+
+        function changeDanceImg() {
+            let intvImg01=document.querySelector(".intv_other img");
+            intvImg01.src = "img/intvsp_dance.png";
+        }
+        //ポイントが消費される
+        function updateDanceAssets() {
+            assets = assets - 100;
+            wallet01.innerText = assets;
+        }
+
+        // 踊ってスタンプを見たバカチンガーが踊る
+        let tvSpImg01 = document.getElementById("tv-sp-img");
+
+        function changeTvSpImg01() {
+            tvSpImg01.src = "premiere/baka_nml_dance_mov.gif";
+        };
+
+        let nmlDance = document.getElementById("nml_dance");
+            nmlDance.addEventListener("click", function () {
+                changeDanceImg();
+                changeTvSpImg01();
+                updateDanceAssets();
+        });
+            
+    // プレミア踊ってスタンプを押したら、画面に表示され200消費する
+        let intvImg02 = document.querySelector(".intv_pre img");
+        let wallet02 = document.getElementById("wallet");
+
+        function changePreDanceImg() {
+            let intvImg02 = document.querySelector(".intv_pre img");
+            intvImg02.src = "img/intvsp_premiere_dance.png";
+        }
+
+        function updatePreDanceAssets() {
+            assets -= 200;
+            wallet02.innerText = assets;
+        }
+
+        // プレミア踊ってスタンプを見たバカチンガーが踊る
+        let tvSpImg02 = document.getElementById("tv-sp-img");
+             
+        function changeTvSpImg02() {
+            tvSpImg02.src = "premiere/baka_pre_dance_mov.gif";
+        }
+       
+        let preDance = document.getElementById("pre_dance");
+            preDance.addEventListener("click", function () {
+                changePreDanceImg();
+                changeTvSpImg02();
+                updatePreDanceAssets();
+        });
+
+    // 社長お願いスタンプを押したら、画面に表示され300消費する
+        let intvImg03 = document.querySelector(".intv_other img");
+        let wallet03 = document.getElementById("wallet");
+
+        function changePresidentImg() {
+            let intvImg03 = document.querySelector(".intv_other img");
+            intvImg03.src = "img/intvsp_president.png";
+        }
+
+        function updatePresidentAssets() {
+            assets -= 300;
+            wallet03.innerText = assets;
+        }
+
+        let lookme = document.getElementById("lookme");
+        lookme.addEventListener("click", function () {
+            changePresidentImg();
+            updatePresidentAssets();
+        });
+
+
+    //     // 「lookme」の要素を取得
+    //     let lookme = document.getElementById("lookme");
+        
+    //     // クリックされたら呼び出される関数
+    //     function changeImg() {
+    //         // 「intv」の「img」要素を取得
+    //         let intvImg = document.getElementById("intv_other").getElementsByTagName("img")[0];
+    //         // 画像を変更
+    //         intvImg.src = "img/intvsp_president.png";
+    //     }
+
+    //     // 「lookme」がクリックされたらchangeImg()関数を呼び出すように設定
+    //     lookme.addEventListener("click", changeImg);
+
+    // // 社長お願いスタンプを押したら、300ポイント減る
+    //     // 「lookme」の要素を取得
+    //         let lookme_price = document.getElementById("lookme");
+
+    //         // 「wallet」の要素を取得
+    //         let wallet = document.getElementById("wallet");
+
+    //         // 「lookme」がクリックされたら呼び出される関数
+    //         function updateAssets() {
+    //             // 変数「assets」から300を引く
+    //             assets = assets - 300;
+    //             // 「wallet」のテキストを更新
+    //             wallet.textContent = assets;
+    //         }
+
+    //         // 「lookme」がクリックされたらupdateAssets()関数を呼び出すように設定
+    //         lookme.addEventListener("click", updateAssets);
+
+    // // ノーマルダンススタンプの挙動
+    //     // 「nml_dance」の要素を取得
+    //     let nml_dance = document.getElementById("nml_dance");
+
+    // // ノーマダンススタンプがクリックされたら呼び出される関数
+    // function changeImg() {
+    //     // 「intv」の「img」要素を取得
+    //     let intvImg = document.getElementById("intv_other").getElementsByTagName("img")[0];
+    //     // 画像を変更
+    //     intvImg.src = "img/intvsp_dance.png";
+    // }
+
+
+
+
+    // // QRボタンを押したらQRコード読み取り
+    //           function changeImg() {
+    //                 let tvSpImg = document.getElementById("tv-sp-img");
+    //                 tvSpImg.src = "img/QR_display.jpg";
+    //             }
+
+    // // 「lookme」の要素を取得
+    //     let QR = document.getElementById("QR");
+
+    //     // 「wallet」の要素を取得
+    //     let wallet_QR = document.getElementById("wallet");
+
+    //     // 「lookme」がクリックされたら呼び出される関数
+    //     function updateAssets() {
+    //         // 変数「assets」から300を引く
+    //         assets = assets + 1000;
+    //         // 「wallet」のテキストを更新
+    //         wallet.textContent = assets;
+    //     }
+
+    //     // 「lookme」がクリックされたらupdateAssets()関数を呼び出すように設定
+    //     QR.addEventListener("click", updateAssets);
+
+    // // スタンプが画面に５秒表示される
+    // // ポイントが２００減る
+    // // バカチンガーが普通に歌う
+    
+    // // プレミア踊ってスタンプを送る
+    // // スタンプが画面に１０秒表示される
+    // // ポイントが５００減る
+    // // バカチンガーが長めに歌う
+
+
+
+    // // 地上波ＮＧのバカチンガーがテレビに出る夢をかなえた
+    // //     テレビの中にバカチンガー
+    // //     手元のスマホでじゃんけんをする
+    // //     画面の中のバカチンガーとじゃんけんができる
+    // //     スタンプを送る
+    // //     バカチンガーが踊ったり
+    // //     歌ったりする
+    // //     ポイントが減る
+    // //     ポイントを貯める
+
+    // // ・ポイントが減る
+    // // ・乱数で０１２が決まる
+    // // ・コンピューターのグーチョキパーが決まる
+    // // ・勝ち負けが決まる
+    // // ・バカチンガーの出す画像がかわる
+    // // ・勝敗によってたまるポイントが変わる
+    // // ・ランダムに出現するＱＲコードを読むとポイントがたまる
+    // // ・「プレミア踊ってスタンプ」を押すとバカチンガーが踊るがポイントがたくさん減る
+    // // ・「プレミア歌ってスタンプ」を押すとバカチンガーが歌う
+    // // ・「西鉄バススタンプ」を押すと運転するジェスチャー
+    // // ・お金でポイントを買う
+    // // ・天気を言う
+    // // ・地震を言う
+
+
+</script>
+
+</html>

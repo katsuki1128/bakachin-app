@@ -1,0 +1,261 @@
+@charset "UTF-8";
+
+
+html {
+    font-size: 62.5%;
+    font-family: "Nico Moji";
+}
+
+body {
+    font-family: "'Roboto', sans-serif;游ゴシック体", "游ゴシック", "Yu Gothic";
+    font-size: 1.6rem;
+    line-height: 1;
+    margin: 0 0;
+    min-width: 700px;
+}
+
+
+
+img {
+    max-width: 100%;
+    height: auto;
+}
+
+.text-center {
+    text-align: center;
+}
+
+/*------------------------*
+ Living
+ *------------------------*/
+.living_box_02 {
+    position: relative;
+}
+
+.living_box_02 h1 {
+    position: absolute;
+    color: #000000;
+    top: 160px;
+    left: 45px;
+    font-size: 5.6rem;
+    margin: 0 0;
+    padding: 0 0;
+    font-family: "Nico Moji";
+}
+
+.tv_sp {
+    /*テレビとスマホの画像*/
+    position: absolute;
+    top: 216px;
+    margin: 0 0;
+    padding: 0 0;
+
+}
+
+.sp_stp {
+    position: absolute;
+    width: 100%;
+    top: -4px;
+    animation-name: fade01;
+    animation-duration: 7.5s;
+    animation-iteration-count: 1;
+}
+
+@keyframes fade01 {
+    0% {
+        opacity: 0;
+    }
+
+    60% {
+        opacity: 0;
+    }
+
+    61% {
+        opacity: 1;
+    }
+
+    100% {
+        opacity: 1;
+    }
+}
+
+.smartphone {
+    position: absolute;
+    width: 177px;
+    top: 519px;
+    left: 492px;
+}
+
+.smartphone img {
+    /*１列目スタンプの幅調整、カーソル挙動*/
+    width: 30.5%;
+    cursor: pointer;
+}
+
+.smartphone img:hover {
+    /* 透明度を上げることで、画像の色を薄く見せる。*/
+    opacity: 0.5;
+    /* リンクをホバーしたときのカーソルにする。*/
+    height: auto;
+}
+
+.smartphone img:active {
+    /* 要素を若干下に下げることで、押した感じを出す。*/
+    /* 今いる位置から相対的に3px下に配置する。*/
+    position: relative;
+    top: 3px;
+}
+
+.smartphone_2 {
+    position: absolute;
+    width: 177px;
+    top: 575px;
+    left: 492px;
+}
+
+.smartphone_2 img {
+    /*２列目スタンプの幅調整、カーソル挙動*/
+    width: 30.5%;
+    cursor: pointer;
+}
+
+.smartphone_2 img:hover {
+    /* 透明度を上げることで、画像の色を薄く見せる。*/
+    opacity: 0.5;
+    /* リンクをホバーしたときのカーソルにする。*/
+    height: auto;
+}
+
+.smartphone_2 img:active {
+    /* 要素を若干下に下げることで、押した感じを出す。*/
+    /* 今いる位置から相対的に3px下に配置する。*/
+    position: relative;
+    top: 3px;
+}
+
+.wallet_box_icon {
+    position: absolute;
+    width: 177px;
+    top: 636px;
+    left: 501px;
+    padding: 0 0;
+    margin: 0 0;
+}
+
+.wallet_box_number {
+    position: absolute;
+    width: 177px;
+    top: 621px;
+    left: 520px;
+    font-weight: bold;
+    padding: 0 0;
+    margin: 0 0;
+}
+
+.wallet_box_QR {
+    position: absolute;
+    width: 177px;
+    top: 638px;
+    left: 564px;
+    font-weight: bold;
+    padding: 0 0;
+    margin: 0 0;
+}
+
+.wallet_box_QR:hover {
+    /* 透明度を上げることで、画像の色を薄く見せる。*/
+    opacity: 0.5;
+    /* リンクをホバーしたときのカーソルにする。*/
+    height: auto;
+}
+
+.wallet_box_gardian {
+    position: absolute;
+    width: 177px;
+    top: 638px;
+    left: 598px;
+    font-weight: bold;
+    padding: 0 0;
+    margin: 0 0;
+}
+
+.wallet_box_gardian:hover {
+    /* 透明度を上げることで、画像の色を薄く見せる。*/
+    opacity: 0.5;
+    /* リンクをホバーしたときのカーソルにする。*/
+    height: auto;
+}
+
+/* 自分が選んだスタンプがテレビとスマホに表示 */
+.intv {
+    position: absolute;
+    width: 100%;
+    height: auto;
+    top: -3px;
+    animation-name: slide_in;
+    animation-duration: 0.3s;
+    animation-delay: 2.5s;
+    animation-fill-mode: both;
+    animation-iteration-count: 1;
+}
+
+@keyframes slide_in {
+    0% {
+        transform: translate(20%, 0%);
+        opacity: 0;
+    }
+
+    100% {
+        transform: translate(0px, 0%);
+        opacity: 1;
+    }
+}
+
+/* ほかスタンプ 自分が選んだスタンプがテレビとスマホに表示 */
+.intv_other {
+    position: absolute;
+    width: 100%;
+    height: auto;
+    top: -3px;
+    animation-name: slide_in;
+    animation-duration: 1s;
+    animation-delay: 1s;
+    animation-fill-mode: both;
+    animation-iteration-count: 1;
+}
+
+@keyframes slide_in {
+    0% {
+        transform: translate(8%, 0%);
+        opacity: 0;
+    }
+
+    100% {
+        transform: translate(0px, 0%);
+        opacity: 1;
+    }
+}
+
+.intv_pre {
+    position: absolute;
+    width: 100%;
+    height: auto;
+    top: -3px;
+    animation-name: slide_in;
+    animation-duration: 1s;
+    animation-delay: 1s;
+    animation-fill-mode: both;
+    animation-iteration-count: 1;
+}
+
+@keyframes slide_in {
+    0% {
+        transform: translate(8%, 0%);
+        opacity: 0;
+    }
+
+    100% {
+        transform: translate(0px, 0%);
+        opacity: 1;
+    }
+}
